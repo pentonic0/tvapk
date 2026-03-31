@@ -5,7 +5,7 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
-  workflow_dispatch:  # allows manual trigger from GitHub UI
+  workflow_dispatch:
 
 jobs:
   build:
@@ -13,11 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout the repository
+      # 1. Checkout code
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Set up JDK 17 (required for AGP 8.x)
+      # 2. Set up JDK 17
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -29,11 +29,15 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      # 4. Grant execute permission for gradlew
-      - name: Grant execute permission for gradlew
+      # 4. Fix gradlew line endings (CRLF -> LF)
+      - name: Fix line endings
+        run: sed -i 's/\r$//' gradlew
+
+      # 5. Make gradlew executable
+      - name: Grant execute permission
         run: chmod +x gradlew
 
-      # 5. Cache Gradle dependencies (speeds up future builds)
+      # 6. Cache Gradle
       - name: Cache Gradle packages
         uses: actions/cache@v4
         with:
@@ -44,9 +48,21 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      # 6. Build the debug APK
+      # 7. Clean build (optional but safe)
+      - name: Clean project
+        run: ./gradlew clean
+
+      # 8. Build Debug APK
       - name: Build Debug APK
         run: ./gradlew assembleDebug --stacktrace
+
+      # 9. Upload APK
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: StreamPlayerTV-debug
+          path: app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 30
 
       # 7. Upload APK as a downloadable artifact
       - name: Upload APK
