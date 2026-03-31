@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <!-- ExoPlayer surface -->
+    <androidx.media3.ui.PlayerView
+        android:id="@+id/playerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="false" />
+
+    <!-- Loading overlay -->
+    <LinearLayout
+        android:id="@+id/loadingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@color/bg_primary"
+        android:gap="20dp"
+        android:visibility="visible">
+
+        <ProgressBar
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:indeterminateTint="@color/accent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOADING STREAM"
+            android:textColor="@color/text_muted"
+            android:textSize="12sp"
+            android:letterSpacing="0.2"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Error message -->
+    <TextView
+        android:id="@+id/tvErrorMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/accent2"
+        android:textSize="16sp"
+        android:padding="16dp"
+        android:visibility="gone" />
+
+    <!-- Player HUD (top bar) -->
+    <LinearLayout
+        android:id="@+id/playerHud"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="28dp"
+        android:paddingVertical="16dp"
+        android:gravity="center_vertical"
+        android:gap="16dp"
+        android:background="@drawable/bg_player_hud"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="← BACK"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/hud_btn_bg"
+            android:textSize="13sp"
+            android:letterSpacing="0.08"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            style="@style/Widget.AppCompat.Button.Borderless" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gap="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NOW PLAYING"
+                android:textColor="@color/text_muted"
+                android:textSize="9sp"
+                android:letterSpacing="0.25"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvNowPlayingName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:ellipsize="end" />
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

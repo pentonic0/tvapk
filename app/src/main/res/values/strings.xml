@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Stream Player TV</string>
+    <string name="error_stream">Stream error — could not play this channel</string>
+    <string name="loading_stream">LOADING STREAM</string>
+    <string name="now_playing">NOW PLAYING</string>
+    <string name="live">LIVE</string>
+    <string name="channels">CHANNELS</string>
+    <string name="retry">RETRY</string>
+    <string name="error_load_channels">Could not load channel list</string>
+</resources>
